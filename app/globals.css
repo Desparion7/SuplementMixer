@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--mainColor: rgb(12, 111, 42);
+	--mainColorOpacity60: rgb(159, 159, 159);
+	--error-color: red;
+}
+
+body {
+	color: rgb(0, 0, 0);
+	background: linear-gradient(
+		359deg,
+		rgb(187, 236, 199) 9%,
+		rgb(245, 244, 241) 100%
+	);
+}
