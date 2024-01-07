@@ -12,21 +12,21 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-	const session = await getServerSession(options)
+	const session = await getServerSession(options);
 
 	// if (!session) redirect('/logowanie');
 	return (
 		<main className='flex h-[82vh] items-end  flex-col justify-center '>
 			<Image
-				className='-z-10 w-auto h-auto pt-36 '
+				className='-z-10 w-auto h-auto  '
 				src='/welcome.PNG'
 				fill
-				alt='tabletka zawierajaca minerały'
+				alt='tło'
 				style={{
 					objectFit: 'cover',
 				}}
 			/>
-			<section className=' w-[55%] bg-gray-200 bg-opacity-60 p-5'>
+			{/* <section className=' w-[55%] bg-gray-200 bg-opacity-60 p-5'>
 				<p className='text-xl mb-10'>
 					Witaj w naszej innowacyjnej aplikacji do układania
 					suplementów diety – Twojego osobistego przewodnika po drodze
@@ -47,7 +47,7 @@ export default async function Home() {
 						Dołącz teraz
 					</button>
 				</Link>
-			</section>
+			</section> */}
 		</main>
 	);
 }

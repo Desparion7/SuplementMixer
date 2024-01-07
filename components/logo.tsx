@@ -4,8 +4,15 @@ import Link from 'next/link';
 
 const Logo = () => {
 	return (
-		<Link href={'/'}>
-			<Image src='/logo.PNG' width={400} height={200} alt='logo' />
+		<Link href={'/'} className='w-[60%] lg:w-[30%] h-[100%] relative'>
+			<Image
+				src='/logo.PNG'
+				width={0}
+				height={0}
+				alt='logo'
+				sizes='50vw'
+				style={{ width: '100%', height: 'auto' }} 
+			/>
 		</Link>
 	);
 };

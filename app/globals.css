@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-	--mainColor: rgb(12, 111, 42);
+	--mainColor: #0c6f2a;
 	--mainColorOpacity60: rgb(159, 159, 159);
 	--error-color: red;
 }
