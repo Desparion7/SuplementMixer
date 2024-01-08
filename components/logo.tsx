@@ -11,7 +11,8 @@ const Logo = () => {
 				height={0}
 				alt='logo'
 				sizes='50vw'
-				style={{ width: '100%', height: 'auto' }} 
+				style={{ width: '100%', height: 'auto' }}
+				priority
 			/>
 		</Link>
 	);
