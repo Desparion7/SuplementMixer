@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
-import { options } from './api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
 	title: 'SuplementMixer',
@@ -12,21 +9,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-	const session = await getServerSession(options);
-
-	// if (!session) redirect('/logowanie');
 	return (
-		<main className='flex h-[82vh] items-end  flex-col justify-center '>
+		<main className='flex h-[82vh] items-end  flex-col justify-center fixed'>
 			<Image
-				className='-z-10 w-auto h-auto  '
+				className='-z-10 absolute'
 				src='/welcome.PNG'
 				fill
+				sizes='100vw'
 				alt='tło'
 				style={{
 					objectFit: 'cover',
 				}}
 			/>
-			{/* <section className=' w-[55%] bg-gray-200 bg-opacity-60 p-5'>
+			<section className=' w-[55%] bg-gray-200 bg-opacity-60 p-5'>
 				<p className='text-xl mb-10'>
 					Witaj w naszej innowacyjnej aplikacji do układania
 					suplementów diety – Twojego osobistego przewodnika po drodze
@@ -43,11 +38,11 @@ export default async function Home() {
 					swoje zdrowie już dziś!
 				</p>
 				<Link href='logowanie'>
-					<button className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-gray-300 transition font-semibold'>
+					<button className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'>
 						Dołącz teraz
 					</button>
 				</Link>
-			</section> */}
+			</section>
 		</main>
 	);
 }

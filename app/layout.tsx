@@ -2,8 +2,9 @@
 import { Inter } from 'next/font/google';
 import Toast from '@/components/toaster';
 import './globals.css';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/navbar/navbar';
 import { NextUIProvider } from '@nextui-org/react';
+import AuthProvider from '@/context/AuthProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,11 +16,13 @@ export default function RootLayout({
 	return (
 		<html lang='pl'>
 			<body className={`${inter.className} min-h-screen `}>
-				<NextUIProvider>
-					<Toast />
-					<Navbar />
-					<div className='px-24'>{children}</div>
-				</NextUIProvider>
+				<AuthProvider>
+					<NextUIProvider>
+						<Toast />
+						<Navbar />
+						<div>{children}</div>
+					</NextUIProvider>
+				</AuthProvider>
 			</body>
 		</html>
 	);

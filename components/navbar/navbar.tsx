@@ -1,10 +1,12 @@
+'use client';
 import React from 'react';
-import Logo from './logo';
+import Logo from '../logo';
 import Link from 'next/link';
 import { CiSearch } from 'react-icons/ci';
 import { FaRegUser } from 'react-icons/fa';
 import NavLinksGroup from './navLinksGroup';
 import MobileNavbar from './mobileNavbar';
+import { signOut, useSession } from 'next-auth/react';
 
 const links = [
 	{
@@ -65,11 +67,14 @@ import {
 	DropdownTrigger,
 	DropdownMenu,
 	DropdownItem,
+	DropdownSection,
 } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 
-const Navbar = async () => {
+const Navbar = () => {
+	const { data: session } = useSession();
+	const router = useRouter();
 
-	// if (!session) redirect('/logowanie');
 	return (
 		<nav className='flex flex-col px-4 sm:px-24 sm:py-4 pb-3  justify-between bg-white'>
 			<div className='flex flex-row items-center justify-between min-h-[80px] '>
@@ -86,32 +91,79 @@ const Navbar = async () => {
 						<CiSearch />
 					</button>
 				</div>
-				<Dropdown className='hidden lg:flex justify-end gap-10 uppercase font-semibold'>
-					<DropdownTrigger className='focus:outline-none '>
-						<button className='hidden lg:flex items-center gap-2 border-2 border-mainColor p-3 rounded-full '>
-							<FaRegUser /> <span>Moje Konto</span>
+				<Dropdown className='hidden lg:flex justify-end gap-10 uppercase font-semibold border-2 border-green-100 rounded-md'>
+					<DropdownTrigger className='focus:outline-none'>
+						<button className='hidden lg:flex items-center gap-2 border-2 border-mainColor p-3 rounded-full max-w-[20%] truncate '>
+							{session?.user?.email ? (
+								<span className='w-[25px] h-[25px]'>
+									{session.user.email.charAt(0).toUpperCase()}
+								</span>
+							) : (
+								<>
+									<FaRegUser />
+									<span>Moje Konto</span>
+								</>
+							)}
 						</button>
 					</DropdownTrigger>
 					<DropdownMenu
 						itemClasses={{
-							base: [
-								'rounded-md',
-								'text-black',
-								'transition-opacity',
-								'data-[hover=true]:bg-green-100',
-							],
+							base: ['data-[hover=true]:bg-green-100'],
 						}}
 						aria-label='Menu użytkownika'
 					>
-						<DropdownItem key='login'>
-							<Link href={'/logowanie'} className='block p-3'>
-								Logowanie
-							</Link>
-						</DropdownItem>
-						<DropdownItem key='signup'>
-							<Link href={'/rejestracja'} className='block p-3'>
-								Załóż konto
-							</Link>
+						<DropdownSection showDivider>
+							{session?.user ? (
+								<DropdownItem
+									isReadOnly
+									className='h-14 gap-2 data-[hover=true]:bg-transparent'
+								>
+									<p className='font-semibold'>
+										{session?.user?.email}
+									</p>
+								</DropdownItem>
+							) : (
+								<DropdownItem
+									isReadOnly
+									className='data-[hover=true]:bg-transparent'
+								/>
+							)}
+							<DropdownItem
+								key='suplements'
+								aria-label='suplementy'
+							>
+								<Link
+									href={'/suplementy'}
+									className='block p-3'
+								>
+									Moje Konto
+								</Link>
+							</DropdownItem>
+						</DropdownSection>
+						<DropdownItem
+							key='auth'
+							aria-label='logowanie'
+							className='data-[hover=true]:bg-transparent'
+						>
+							{session?.user ? (
+								<button
+									className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
+									onClick={() => {
+										signOut();
+									}}
+								>
+									Wyloguj
+								</button>
+							) : (
+								<button
+									onClick={() => {
+										router.push('/logowanie');
+									}}
+									className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
+								>
+									Logowanie
+								</button>
+							)}
 						</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>

@@ -4,14 +4,18 @@ import {
 	DropdownMenu,
 	DropdownTrigger,
 } from '@nextui-org/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { CiSearch } from 'react-icons/ci';
 import { FaRegUser } from 'react-icons/fa';
 
 const MobileNavbar = () => {
+	const { data: session } = useSession();
+	const router = useRouter();
 	return (
 		<div className='flex lg:hidden justify-end gap-10 uppercase font-semibold'>
-			<Dropdown className=' justify-end gap-10 uppercase font-semibold'>
+			<Dropdown className=' justify-end gap-12 uppercase font-semibold'>
 				<DropdownTrigger className='focus:outline-none'>
 					<button className='flex items-center gap-2 border-2 border-mainColor p-3 rounded-full'>
 						<FaRegUser />
@@ -28,14 +32,9 @@ const MobileNavbar = () => {
 					}}
 					aria-label='Menu mobilne użytkownika'
 				>
-					<DropdownItem key='login' aria-label='logowanie'>
-						<Link href={'/logowanie'} className='block p-3'>
-							Logowanie
-						</Link>
-					</DropdownItem>
-					<DropdownItem key='signup' aria-label='załóż konto'>
-						<Link href={'/rejestracja'} className='block p-3'>
-							Załóż konto
+					<DropdownItem key='account' aria-label='moje konto'>
+						<Link href={'/konto'} className='block p-3'>
+							Moje Konto
 						</Link>
 					</DropdownItem>
 					<DropdownItem key='suplements' aria-label='suplementy'>
@@ -47,6 +46,7 @@ const MobileNavbar = () => {
 						key='search'
 						isReadOnly
 						aria-label='wyszukiwanie'
+						className='data-[hover=true]:bg-transparent'
 					>
 						<div className='flex items-center w-[80%]'>
 							<input
@@ -60,6 +60,31 @@ const MobileNavbar = () => {
 								<CiSearch />
 							</button>
 						</div>
+					</DropdownItem>
+					<DropdownItem
+						key='auth'
+						aria-label='logowanie'
+						className='data-[hover=true]:bg-transparent'
+					>
+						{session?.user ? (
+							<button
+								className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
+								onClick={() => {
+									signOut();
+								}}
+							>
+								Wyloguj
+							</button>
+						) : (
+							<button
+								onClick={() => {
+									router.push('/logowanie');
+								}}
+								className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
+							>
+								Logowanie
+							</button>
+						)}
 					</DropdownItem>
 				</DropdownMenu>
 			</Dropdown>

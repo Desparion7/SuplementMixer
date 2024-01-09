@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -9,12 +9,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Button from '@/components/button';
 import Input from '@/components/input';
-import { signin } from './_utils/singin'; 
+import { signin } from './_utils/singin';
 import { loginSchema, TLoginSchema } from '@/utils/zodTypes';
+import { useSession } from 'next-auth/react';
 
 const Logowanie = () => {
 	const router = useRouter();
+	const { data: session } = useSession();
 
+	useEffect(() => {
+		if (session) router.push('/');
+	}, [session, router]);
+	
 	const submitHandler = async (data: TLoginSchema) => {
 		try {
 			const response = await signin(data.email, data.password);
