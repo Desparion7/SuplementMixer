@@ -10,19 +10,21 @@ export const metadata: Metadata = {
 
 export default async function Home() {
 	return (
-		<main className='flex h-[82vh] items-end  flex-col justify-center fixed'>
-			<Image
-				className='-z-10 absolute'
-				src='/welcome.PNG'
-				fill
-				sizes='100vw'
-				alt='tło'
-				style={{
-					objectFit: 'cover',
-				}}
-			/>
-			<section className=' w-[55%] bg-gray-200 bg-opacity-60 p-5'>
-				<p className='text-xl mb-10'>
+		<main className='flex flex-col  min-h-[100vh] lg:min-h-[82vh] items-center lg:items-end justify-center relative bg-transparent'>
+			<div className='w-[100%] h-[100%] absolute'>
+				<Image
+					className='z-1'
+					src='/welcome.PNG'
+					fill
+					sizes='100vh'
+					alt='tło'
+					style={{
+						objectFit: 'cover',
+					}}
+				/>
+			</div>
+			<section className='w-[80%] lg:w-[55%] bg-white bg-opacity-60 p-5 z-10 lg:mr-20 text-md sm:text-xl '>
+				<p className='mb-10'>
 					Witaj w naszej innowacyjnej aplikacji do układania
 					suplementów diety – Twojego osobistego przewodnika po drodze
 					do zdrowego życia! W dzisiejszym zabieganym świecie, dbanie
@@ -31,7 +33,7 @@ export default async function Home() {
 					wszystkich niezbędnych minerałów i witamin wyłącznie poprzez
 					codzienną dietę.
 				</p>
-				<p className='text-xl mb-10'>
+				<p className=' mb-10'>
 					Nie czekaj dłużej – dołącz do naszej społeczności dbającej o
 					zdrowie i doświadcz, jak prosta i skuteczna może być
 					suplementacja diety z pomocą naszej aplikacji. Zainwestuj w
