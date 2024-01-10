@@ -8,8 +8,18 @@ import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TRegistrationSchema, registrationSchema } from '@/utils/zodTypes';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 export default function Rejestracja() {
+	const router = useRouter();
+	const { data: session } = useSession();
+
+	useEffect(() => {
+		if (session) router.push('/');
+	}, [session, router]);
+
 	const submitHandler = async (data: TRegistrationSchema) => {
 		const response = await signUp(data.email, data.password, data.name);
 		const responseData = await response.json();

@@ -37,7 +37,7 @@ export default async function Home() {
 					suplementacja diety z pomocą naszej aplikacji. Zainwestuj w
 					swoje zdrowie już dziś!
 				</p>
-				<Link href='logowanie'>
+				<Link href='/rejestracja'>
 					<button className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'>
 						Dołącz teraz
 					</button>

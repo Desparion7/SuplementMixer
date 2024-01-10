@@ -91,61 +91,46 @@ const Navbar = () => {
 						<CiSearch />
 					</button>
 				</div>
-				<Dropdown className='hidden lg:flex justify-end gap-10 uppercase font-semibold border-2 border-green-100 rounded-md'>
-					<DropdownTrigger className='focus:outline-none'>
-						<button className='hidden lg:flex items-center gap-2 border-2 border-mainColor p-3 rounded-full max-w-[20%] truncate '>
-							{session?.user?.email ? (
-								<span className='w-[25px] h-[25px]'>
-									{session.user.email.charAt(0).toUpperCase()}
-								</span>
-							) : (
+				{session?.user ? (
+					<Dropdown className='hidden lg:flex justify-end gap-10 uppercase font-semibold border-2 border-green-100 rounded-md'>
+						<DropdownTrigger className='focus:outline-none'>
+							<button className='hidden lg:flex items-center gap-2 border-2 border-mainColor p-3 rounded-full max-w-[20%] truncate '>
 								<>
 									<FaRegUser />
 									<span>Moje Konto</span>
 								</>
-							)}
-						</button>
-					</DropdownTrigger>
-					<DropdownMenu
-						itemClasses={{
-							base: ['data-[hover=true]:bg-green-100'],
-						}}
-						aria-label='Menu użytkownika'
-					>
-						<DropdownSection showDivider>
-							{session?.user ? (
+							</button>
+						</DropdownTrigger>
+						<DropdownMenu
+							itemClasses={{
+								base: ['data-[hover=true]:bg-green-100'],
+							}}
+							aria-label='Menu użytkownika'
+						>
+							<DropdownSection showDivider>
 								<DropdownItem
 									isReadOnly
+									aria-label='email użytkownika'
 									className='h-14 gap-2 data-[hover=true]:bg-transparent'
 								>
 									<p className='font-semibold'>
 										{session?.user?.email}
 									</p>
 								</DropdownItem>
-							) : (
-								<DropdownItem
-									isReadOnly
-									className='data-[hover=true]:bg-transparent'
-								/>
-							)}
+								<DropdownItem key='panel' aria-label='panel'>
+									<Link
+										href={'/panel'}
+										className='block p-3 text-center'
+									>
+										Panel użytkownika
+									</Link>
+								</DropdownItem>
+							</DropdownSection>
 							<DropdownItem
-								key='suplements'
-								aria-label='suplementy'
+								key='logout'
+								aria-label='wyloguj'
+								className='data-[hover=true]:bg-transparent'
 							>
-								<Link
-									href={'/suplementy'}
-									className='block p-3'
-								>
-									Moje Konto
-								</Link>
-							</DropdownItem>
-						</DropdownSection>
-						<DropdownItem
-							key='auth'
-							aria-label='logowanie'
-							className='data-[hover=true]:bg-transparent'
-						>
-							{session?.user ? (
 								<button
 									className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
 									onClick={() => {
@@ -154,19 +139,20 @@ const Navbar = () => {
 								>
 									Wyloguj
 								</button>
-							) : (
-								<button
-									onClick={() => {
-										router.push('/logowanie');
-									}}
-									className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
-								>
-									Logowanie
-								</button>
-							)}
-						</DropdownItem>
-					</DropdownMenu>
-				</Dropdown>
+							</DropdownItem>
+						</DropdownMenu>
+					</Dropdown>
+				) : (
+					<button
+						onClick={() => {
+							router.push('/logowanie');
+						}}
+						className='hidden lg:flex text-sm p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
+					>
+						Logowanie
+					</button>
+				)}
+
 				<MobileNavbar />
 			</div>
 			<div className='hidden lg:flex flex-row justify-center'>

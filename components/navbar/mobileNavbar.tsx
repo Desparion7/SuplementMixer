@@ -48,9 +48,9 @@ const MobileNavbar = () => {
 						aria-label='wyszukiwanie'
 						className='data-[hover=true]:bg-transparent'
 					>
-						<div className='flex items-center w-[80%]'>
+						<div className='flex items-center justify-center'>
 							<input
-								className='p-1 min-w-full focus:outline-none text-sm border-2 border-gray-300'
+								className='p-1 focus:outline-none text-sm border-2 border-gray-300 '
 								placeholder='Wyszukaj suplementu'
 							/>
 							<button
