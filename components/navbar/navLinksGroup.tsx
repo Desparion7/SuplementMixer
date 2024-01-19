@@ -16,7 +16,7 @@ type NavLinksGroupProps = {
 const NavLinksGroup = ({ label, links }: NavLinksGroupProps) => {
 	const [visible, setVisible] = useState(false);
 	return (
-		<div className='relative z-20' onMouseLeave={() => setVisible(false)}>
+		<div className='relative z-20 cursor-default' onMouseLeave={() => setVisible(false)}>
 			<p
 				onMouseEnter={() => setVisible(true)}
 				onClick={() => {

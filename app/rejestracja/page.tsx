@@ -74,7 +74,6 @@ export default function Rejestracja() {
 					<h1 className='text-4xl mb-10 uppercase font-semibold'>
 						Rejestracja
 					</h1>
-
 					<Input
 						label='Email'
 						type='email'
