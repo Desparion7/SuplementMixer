@@ -12,15 +12,15 @@ const Toast = () => {
 						background: 'rgb(255,255,255)',
 						color: 'rgb(0,0,0)',
 						padding: '16px',
-						border: '2px solid var(--error-color)',
+						border: '2px solid rgba(255, 0, 0)',
 					},
 					success: {
 						iconTheme: {
-							primary: 'var(--mainColor)',
+							primary: 'rgb(12, 111, 42)',
 							secondary: 'rgb(255,255,255)',
 						},
 						style: {
-							border: '2px solid var(--mainColor)',
+							border: '2px solid rgba(12, 111, 42)',
 						},
 					},
 				}}

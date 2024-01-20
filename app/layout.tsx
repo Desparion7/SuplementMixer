@@ -1,12 +1,15 @@
 'use client';
-import { Inter } from 'next/font/google';
 import Toast from '@/components/toaster';
 import './globals.css';
 import Navbar from '@/components/navbar/navbar';
-import { NextUIProvider } from '@nextui-org/react';
 import AuthProvider from '@/context/AuthProvider';
+import { cn } from '@/lib/utils';
+import { Inter as FontSans } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+export const fontSans = FontSans({
+	subsets: ['latin'],
+	variable: '--font-sans',
+});
 
 export default function RootLayout({
 	children,
@@ -15,13 +18,16 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='pl'>
-			<body className={`${inter.className} min-h-screen `}>
+			<body
+				className={cn(
+					'min-h-screen bg-background font-sans antialiased',
+					fontSans.variable
+				)}
+			>
 				<AuthProvider>
-					<NextUIProvider>
-						<Toast />
-						<Navbar />
-						<div>{children}</div>
-					</NextUIProvider>
+					<Toast />
+					<Navbar />
+					<div>{children}</div>
 				</AuthProvider>
 			</body>
 		</html>

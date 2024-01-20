@@ -7,14 +7,16 @@ import { FaRegUser } from 'react-icons/fa';
 import NavLinksGroup from './navLinksGroup';
 import MobileNavbar from './mobileNavbar';
 import { signOut, useSession } from 'next-auth/react';
-
 import {
-	Dropdown,
-	DropdownTrigger,
 	DropdownMenu,
-	DropdownItem,
-	DropdownSection,
-} from '@nextui-org/react';
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuSub,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { useRouter } from 'next/navigation';
 import { links } from '@/lib/data';
 
@@ -39,56 +41,71 @@ const Navbar = () => {
 					</button>
 				</div>
 				{session?.user ? (
-					<Dropdown className='hidden lg:flex justify-end gap-10 uppercase font-semibold border-2 border-green-100 rounded-md'>
-						<DropdownTrigger className='focus:outline-none'>
-							<button className='hidden lg:flex items-center gap-2 border-2 border-mainColor p-3 rounded-full max-w-[20%] truncate '>
-								<>
-									<FaRegUser />
-									<span>Moje Konto</span>
-								</>
-							</button>
-						</DropdownTrigger>
-						<DropdownMenu
-							itemClasses={{
-								base: ['data-[hover=true]:bg-green-100'],
-							}}
-							aria-label='Menu użytkownika'
-						>
-							<DropdownSection showDivider>
-								<DropdownItem
-									isReadOnly
-									aria-label='email użytkownika'
-									className='h-14 gap-2 data-[hover=true]:bg-transparent'
-								>
-									<p className='font-semibold'>
-										{session?.user?.email}
-									</p>
-								</DropdownItem>
-								<DropdownItem key='panel' aria-label='panel'>
-									<Link
-										href={'/panel'}
-										className='block p-3 text-center'
-									>
-										Panel użytkownika
-									</Link>
-								</DropdownItem>
-							</DropdownSection>
-							<DropdownItem
-								key='logout'
-								aria-label='wyloguj'
-								className='data-[hover=true]:bg-transparent'
-							>
-								<button
-									className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
-									onClick={() => {
-										signOut();
-									}}
-								>
-									Wyloguj
+					<div className='hidden lg:flex justify-end gap-10 uppercase font-semibold border-2 border-green-100 rounded-md'>
+						<DropdownMenu>
+							<DropdownMenuTrigger className='focus:outline-none'>
+								<button className='hidden lg:flex items-center gap-2 border-2 border-mainColor p-3 rounded-full max-w-[100%] truncate '>
+									<>
+										<FaRegUser />
+										<span>Moje Konto</span>
+									</>
 								</button>
-							</DropdownItem>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent className='min-w-56 p-4'>
+								<DropdownMenuLabel>
+									Moje Konto
+								</DropdownMenuLabel>
+								<DropdownMenuSeparator />
+								<DropdownMenuGroup>
+									{session?.user && (
+										<DropdownMenuItem className='hover:bg-green-500 cursor-pointer z-100'>
+											<Link href={'/konto'}>
+												Panel konta
+											</Link>
+										</DropdownMenuItem>
+									)}
+									<DropdownMenuSeparator />
+									<DropdownMenuSub>
+										<div className='flex items-center justify-center'>
+											<input
+												className='p-1 focus:outline-none text-sm border-2 border-gray-300 '
+												placeholder='Wyszukaj suplementu'
+											/>
+											<button
+												className='p-2 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-sm hover:text-black transition font-semibold border-2 border-l-transparent'
+												type='button'
+											>
+												<CiSearch />
+											</button>
+										</div>
+									</DropdownMenuSub>
+									<DropdownMenuSeparator />
+									<DropdownMenuSub>
+										{session?.user ? (
+											<button
+												className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
+												onClick={() => {
+													signOut();
+												}}
+											>
+												Wyloguj
+											</button>
+										) : (
+											<button
+												onClick={() => {
+													router.push('/logowanie');
+												}}
+												className='w-[100%] p-3 bg-gradient-to-b text-white from-lime-500 to-green-700 rounded-lg hover:text-black transition font-semibold'
+											>
+												Logowanie
+											</button>
+										)}
+									</DropdownMenuSub>
+									<DropdownMenuSeparator />
+								</DropdownMenuGroup>
+							</DropdownMenuContent>
 						</DropdownMenu>
-					</Dropdown>
+					</div>
 				) : (
 					<button
 						onClick={() => {
